@@ -25,7 +25,16 @@ jobs:
       run: |
         mkdir -p ./tools/
         curl -L "https://dl.google.com/dl/android/maven2/com/android/tools/r8/2.1.75/r8-2.1.75.jar" -o ./tools/r8-2.1.75.jar
+    - name: Download Groovy
+      run: |
+        mkdir -p ./jars/
+        curl -L "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy/3.0.9/groovy-3.0.9.jar" -o ./jars/groovy-3.0.9.jar
     - name: Run d8
       run: |
-        java -cp ./tools/r8-2.1.75.jar com.android.tools.r8.D8
-
+        mkdir -p ./out
+        java -cp ./tools/r8-2.1.75.jar com.android.tools.r8.D8 --debug --output ./out/groovy-3.0.9.dex.jar ./jars/groovy-3.0.9.jar
+    - name: Create Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: out
+        path: ./out
