@@ -25,5 +25,7 @@ jobs:
       run: |
         mkdir -p ./tools/
         curl -L "https://dl.google.com/dl/android/maven2/com/android/tools/r8/2.1.75/r8-2.1.75.jar" -o ./tools/r8-2.1.75.jar
+    - name: Run d8
+      run: |
         java -cp ./tools/r8-2.1.75.jar com.android.tools.r8.D8
 
